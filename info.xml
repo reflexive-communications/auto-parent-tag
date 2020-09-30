@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<extension key="hu.es-progress.auto-parent-tag" type="module">
+  <file>auto_parent_tag</file>
+  <name>Auto parent tag</name>
+  <description>Automatically adds parent tag to contact if a child tag is added</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Sandor Semsey</author>
+    <email>semseysandor@gmail.com</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://github.com/semseysandor/hu.es-progress.auto-parent-tag</url>
+  </urls>
+  <releaseDate>2020-05-13</releaseDate>
+  <version>0.8</version>
+  <develStage>beta</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <civix>
+    <namespace>CRM/AutoParentTag</namespace>
+  </civix>
+</extension>
