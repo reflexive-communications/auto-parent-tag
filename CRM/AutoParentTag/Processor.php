@@ -11,8 +11,8 @@ class CRM_AutoParentTag_Processor
     /**
      * Check if tag is applied to a contact
      *
-     * @param int $contact_id Contact ID
-     * @param int $tag_id Tag ID
+     * @param  int  $contact_id  Contact ID
+     * @param  int  $tag_id  Tag ID
      *
      * @return bool
      *
@@ -22,12 +22,12 @@ class CRM_AutoParentTag_Processor
     public function isTagPresent(int $contact_id, int $tag_id): bool
     {
         $result = EntityTag::get()
-        ->addSelect('id')
-        ->addWhere('entity_id', '=', $contact_id)
-        ->addWhere('tag_id', '=', $tag_id)
-        ->addWhere('entity_table', '=', 'civicrm_contact')
-        ->setLimit(1)
-        ->execute();
+            ->addSelect('id')
+            ->addWhere('entity_id', '=', $contact_id)
+            ->addWhere('tag_id', '=', $tag_id)
+            ->addWhere('entity_table', '=', 'civicrm_contact')
+            ->setLimit(1)
+            ->execute();
 
         if ($result->count() === 1) {
             return true;
@@ -39,7 +39,7 @@ class CRM_AutoParentTag_Processor
     /**
      * Get parent tag id
      *
-     * @param int $tag_id Tag ID
+     * @param  int  $tag_id  Tag ID
      *
      * @return mixed
      *
@@ -49,10 +49,10 @@ class CRM_AutoParentTag_Processor
     public function getParentTagId(int $tag_id): ?int
     {
         $result = Tag::get()
-        ->addSelect('parent_id')
-        ->addWhere('id', '=', $tag_id)
-        ->setLimit(1)
-        ->execute();
+            ->addSelect('parent_id')
+            ->addWhere('id', '=', $tag_id)
+            ->setLimit(1)
+            ->execute();
 
         return $result->first()['parent_id'];
     }
@@ -60,8 +60,8 @@ class CRM_AutoParentTag_Processor
     /**
      * Add tag to contact
      *
-     * @param int $contact_id Contact ID
-     * @param int $tag_id Tag ID
+     * @param  int  $contact_id  Contact ID
+     * @param  int  $tag_id  Tag ID
      *
      * @throws \API_Exception
      * @throws \Civi\API\Exception\UnauthorizedException
@@ -75,9 +75,9 @@ class CRM_AutoParentTag_Processor
 
         // Add tag
         EntityTag::create()
-        ->addValue('entity_id', $contact_id)
-        ->addValue('tag_id', $tag_id)
-        ->addValue('entity_table', 'civicrm_contact')
-        ->execute();
+            ->addValue('entity_id', $contact_id)
+            ->addValue('tag_id', $tag_id)
+            ->addValue('entity_table', 'civicrm_contact')
+            ->execute();
     }
 }

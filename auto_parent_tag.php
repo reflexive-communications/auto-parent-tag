@@ -9,7 +9,7 @@ require_once 'auto_parent_tag.civix.php';
  */
 function auto_parent_tag_civicrm_config(&$config)
 {
-  _auto_parent_tag_civix_civicrm_config($config);
+    _auto_parent_tag_civix_civicrm_config($config);
 }
 
 /**
@@ -19,7 +19,7 @@ function auto_parent_tag_civicrm_config(&$config)
  */
 function auto_parent_tag_civicrm_xmlMenu(&$files)
 {
-  _auto_parent_tag_civix_civicrm_xmlMenu($files);
+    _auto_parent_tag_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -29,7 +29,7 @@ function auto_parent_tag_civicrm_xmlMenu(&$files)
  */
 function auto_parent_tag_civicrm_install()
 {
-  _auto_parent_tag_civix_civicrm_install();
+    _auto_parent_tag_civix_civicrm_install();
 }
 
 /**
@@ -39,7 +39,7 @@ function auto_parent_tag_civicrm_install()
  */
 function auto_parent_tag_civicrm_postInstall()
 {
-  _auto_parent_tag_civix_civicrm_postInstall();
+    _auto_parent_tag_civix_civicrm_postInstall();
 }
 
 /**
@@ -49,7 +49,7 @@ function auto_parent_tag_civicrm_postInstall()
  */
 function auto_parent_tag_civicrm_uninstall()
 {
-  _auto_parent_tag_civix_civicrm_uninstall();
+    _auto_parent_tag_civix_civicrm_uninstall();
 }
 
 /**
@@ -59,7 +59,7 @@ function auto_parent_tag_civicrm_uninstall()
  */
 function auto_parent_tag_civicrm_enable()
 {
-  _auto_parent_tag_civix_civicrm_enable();
+    _auto_parent_tag_civix_civicrm_enable();
 }
 
 /**
@@ -69,7 +69,7 @@ function auto_parent_tag_civicrm_enable()
  */
 function auto_parent_tag_civicrm_disable()
 {
-  _auto_parent_tag_civix_civicrm_disable();
+    _auto_parent_tag_civix_civicrm_disable();
 }
 
 /**
@@ -79,7 +79,7 @@ function auto_parent_tag_civicrm_disable()
  */
 function auto_parent_tag_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
 {
-  return _auto_parent_tag_civix_civicrm_upgrade($op, $queue);
+    return _auto_parent_tag_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -92,7 +92,7 @@ function auto_parent_tag_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
  */
 function auto_parent_tag_civicrm_managed(&$entities)
 {
-  _auto_parent_tag_civix_civicrm_managed($entities);
+    _auto_parent_tag_civix_civicrm_managed($entities);
 }
 
 /**
@@ -106,7 +106,7 @@ function auto_parent_tag_civicrm_managed(&$entities)
  */
 function auto_parent_tag_civicrm_caseTypes(&$caseTypes)
 {
-  _auto_parent_tag_civix_civicrm_caseTypes($caseTypes);
+    _auto_parent_tag_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -121,7 +121,7 @@ function auto_parent_tag_civicrm_caseTypes(&$caseTypes)
  */
 function auto_parent_tag_civicrm_angularModules(&$angularModules)
 {
-  _auto_parent_tag_civix_civicrm_angularModules($angularModules);
+    _auto_parent_tag_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -129,9 +129,10 @@ function auto_parent_tag_civicrm_angularModules(&$angularModules)
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterSettingsFolders
  */
-function auto_parent_tag_civicrm_alterSettingsFolders(&$metaDataFolders = null)
-{
-  _auto_parent_tag_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function auto_parent_tag_civicrm_alterSettingsFolders(
+    &$metaDataFolders = null
+) {
+    _auto_parent_tag_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 /**
@@ -143,7 +144,7 @@ function auto_parent_tag_civicrm_alterSettingsFolders(&$metaDataFolders = null)
  */
 function auto_parent_tag_civicrm_entityTypes(&$entityTypes)
 {
-  _auto_parent_tag_civix_civicrm_entityTypes($entityTypes);
+    _auto_parent_tag_civix_civicrm_entityTypes($entityTypes);
 }
 
 /**
@@ -151,7 +152,7 @@ function auto_parent_tag_civicrm_entityTypes(&$entityTypes)
  */
 function auto_parent_tag_civicrm_themes(&$themes)
 {
-  _auto_parent_tag_civix_civicrm_themes($themes);
+    _auto_parent_tag_civix_civicrm_themes($themes);
 }
 
 /**
@@ -167,20 +168,27 @@ function auto_parent_tag_civicrm_themes(&$themes)
  */
 function auto_parent_tag_civicrm_post($op, $objectName, $objectId, &$objectRef)
 {
-  // Only when creating entity tags
-  if ($objectName !== 'EntityTag' || $op !== 'create') {
-    return;
-  }
+    // Only when creating entity tags
+    if ($objectName !== 'EntityTag' || $op !== 'create') {
+        return;
+    }
 
-  // Processor
-  $proc = new CRM_AutoParentTag_Processor();
+    // Get contact_id
+    $contact_id = $objectRef[0][0];
 
-  // Tag has no parent
-  if (is_null($parent = $proc->getParentTagId($objectId))) {
-    return;
-  }
+    // Check for valid contact_id
+    if (!is_numeric($contact_id)) {
+        return;
+    }
 
-  // Add parent tag to contact
-  $contact_id = $objectRef[0][0];
-  $proc->addTagToContact($contact_id, $parent);
+    // Processor
+    $proc = new CRM_AutoParentTag_Processor();
+
+    // Tag has no parent
+    if (is_null($parent = $proc->getParentTagId($objectId))) {
+        return;
+    }
+
+    // Add parent tag to contact
+    $proc->addTagToContact($contact_id, $parent);
 }
