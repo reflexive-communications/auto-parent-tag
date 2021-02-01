@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<extension key="hu.es-progress.auto-parent-tag" type="module">
+<extension key="auto-parent-tag" type="module">
   <file>auto_parent_tag</file>
   <name>Auto parent tag</name>
-  <description>Automatically adds parent tag to contact if a child tag is added</description>
+  <description>Automatically adds parent tag to contact if a child tag is added (recursively)</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Sandor Semsey</author>
     <email>sandor@es-progress.hu</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/hu.es-progress.auto-parent-tag</url>
+    <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/extensions/auto-parent-tag</url>
   </urls>
-  <releaseDate>2020-05-13</releaseDate>
-  <version>0.8</version>
-  <develStage>beta</develStage>
+  <releaseDate>2021-02-01</releaseDate>
+  <version>0.9</version>
+  <develStage>stable</develStage>
   <compatibility>
     <ver>5.0</ver>
   </compatibility>

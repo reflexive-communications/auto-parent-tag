@@ -1,5 +1,7 @@
 <?php
 
+use Civi\API\Exception\UnauthorizedException;
+
 require_once 'auto_parent_tag.civix.php';
 
 /**
@@ -155,6 +157,10 @@ function auto_parent_tag_civicrm_themes(&$themes)
     _auto_parent_tag_civix_civicrm_themes($themes);
 }
 
+/*
+ * Extension code
+ */
+
 /**
  * Add parent tag if a child tag is added to a contact
  *
@@ -163,8 +169,8 @@ function auto_parent_tag_civicrm_themes(&$themes)
  * @param $objectId
  * @param $objectRef
  *
- * @throws \API_Exception
- * @throws \Civi\API\Exception\UnauthorizedException
+ * @throws API_Exception
+ * @throws UnauthorizedException
  */
 function auto_parent_tag_civicrm_post($op, $objectName, $objectId, &$objectRef)
 {
@@ -173,7 +179,6 @@ function auto_parent_tag_civicrm_post($op, $objectName, $objectId, &$objectRef)
         return;
     }
 
-    // Get contact_id
     $contact_id = $objectRef[0][0];
 
     // Check for valid contact_id
@@ -181,14 +186,15 @@ function auto_parent_tag_civicrm_post($op, $objectName, $objectId, &$objectRef)
         return;
     }
 
-    // Processor
     $proc = new CRM_AutoParentTag_Processor();
 
+    $parent_id = $proc->getParentTagId($objectId);
+
     // Tag has no parent
-    if (is_null($parent = $proc->getParentTagId($objectId))) {
+    if (is_null($parent_id)) {
         return;
     }
 
     // Add parent tag to contact
-    $proc->addTagToContact($contact_id, $parent);
+    $proc->addTagToContact($contact_id, $parent_id);
 }

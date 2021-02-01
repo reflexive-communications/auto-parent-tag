@@ -1,10 +1,15 @@
 <?php
 
+use Civi\API\Exception\UnauthorizedException;
 use Civi\Api4\EntityTag;
 use Civi\Api4\Tag;
 
 /**
- * CRM_AutoParentTag_Processor Class
+ * Processor
+ *
+ * @package  auto-parent-tag
+ * @author   Sandor Semsey <sandor@es-progress.hu>
+ * @license  AGPL-3.0
  */
 class CRM_AutoParentTag_Processor
 {
@@ -16,8 +21,8 @@ class CRM_AutoParentTag_Processor
      *
      * @return bool
      *
-     * @throws \API_Exception
-     * @throws \Civi\API\Exception\UnauthorizedException
+     * @throws API_Exception
+     * @throws UnauthorizedException
      */
     public function isTagPresent(int $contact_id, int $tag_id): bool
     {
@@ -41,10 +46,10 @@ class CRM_AutoParentTag_Processor
      *
      * @param  int  $tag_id  Tag ID
      *
-     * @return mixed
+     * @return int|null
      *
-     * @throws \API_Exception
-     * @throws \Civi\API\Exception\UnauthorizedException
+     * @throws API_Exception
+     * @throws UnauthorizedException
      */
     public function getParentTagId(int $tag_id): ?int
     {
@@ -63,8 +68,8 @@ class CRM_AutoParentTag_Processor
      * @param  int  $contact_id  Contact ID
      * @param  int  $tag_id  Tag ID
      *
-     * @throws \API_Exception
-     * @throws \Civi\API\Exception\UnauthorizedException
+     * @throws API_Exception
+     * @throws UnauthorizedException
      */
     public function addTagToContact(int $contact_id, int $tag_id)
     {
