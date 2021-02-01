@@ -10,7 +10,7 @@ class CRM_AutoParentTag_ExtensionUtil
 {
     public const SHORT_NAME = "auto_parent_tag";
 
-    public const LONG_NAME = "hu.es-progress.auto-parent-tag";
+    public const LONG_NAME = "auto-parent-tag";
 
     public const CLASS_PREFIX = "CRM_AutoParentTag";
 

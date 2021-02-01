@@ -1,4 +1,4 @@
-# hu.es-progress.auto-parent-tag
+# auto-parent-tag
 
 If a child tag is added to a contact, the parent tag will be added automatically.
 

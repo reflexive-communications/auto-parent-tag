@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension key="hu.es-progress.auto-parent-tag" type="module">
+<extension key="auto-parent-tag" type="module">
   <file>auto_parent_tag</file>
   <name>Auto parent tag</name>
   <description>Automatically adds parent tag to contact if a child tag is added</description>
