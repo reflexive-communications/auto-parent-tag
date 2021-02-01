@@ -9,7 +9,7 @@
     <email>sandor@es-progress.hu</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/hu.es-progress.auto-parent-tag</url>
+    <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/extensions/auto-parent-tag</url>
   </urls>
   <releaseDate>2021-02-01</releaseDate>
   <version>0.9</version>
