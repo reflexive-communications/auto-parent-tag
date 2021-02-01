@@ -2,7 +2,7 @@
 <extension key="auto-parent-tag" type="module">
   <file>auto_parent_tag</file>
   <name>Auto parent tag</name>
-  <description>Automatically adds parent tag to contact if a child tag is added</description>
+  <description>Automatically adds parent tag to contact if a child tag is added (recursively)</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Sandor Semsey</author>

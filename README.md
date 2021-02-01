@@ -1,12 +1,13 @@
 # auto-parent-tag
 
 If a child tag is added to a contact, the parent tag will be added automatically.
+This is done recursively until a top-tag is reached. (No more parents)
 
 The extension is licensed under [AGPL-3.0](LICENSE.txt).
 
 ## Requirements
 
-* PHP v7.0+
+* PHP v7.2+
 * CiviCRM (5.25) probably work below, not tested
 
 ## Installation (CLI, Zip)
