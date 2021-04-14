@@ -179,10 +179,16 @@ function auto_parent_tag_civicrm_postCommit($op, $objectName, $objectId, &$objec
         return;
     }
 
+    // Check for logged in user
+    // Don't add tag for unauthenticated user
+    if (is_null(CRM_Core_Session::getLoggedInContactID())) {
+        return;
+    }
+
     $contact_id = $objectRef[0][0];
 
     // Check for valid contact_id
-    if (!is_numeric($contact_id)) {
+    if (!CRM_Utils_Rule::positiveInteger($contact_id)) {
         return;
     }
 
