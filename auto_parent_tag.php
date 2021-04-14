@@ -171,11 +171,17 @@ function auto_parent_tag_civicrm_themes(&$themes)
  *
  * @throws API_Exception
  * @throws UnauthorizedException
+ * @throws CRM_Core_Exception
  */
 function auto_parent_tag_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
     // Only when creating entity tags
     if ($objectName !== 'EntityTag' || $op !== 'create') {
+        return;
+    }
+
+    // Only if tagging contacts
+    if (!is_array($objectRef) || $objectRef[1] !== 'civicrm_contact') {
         return;
     }
 
@@ -192,15 +198,6 @@ function auto_parent_tag_civicrm_postCommit($op, $objectName, $objectId, &$objec
         return;
     }
 
-    $proc = new CRM_AutoParentTag_Processor();
-
-    $parent_id = $proc->getParentTagId($objectId);
-
-    // Tag has no parent
-    if (is_null($parent_id)) {
-        return;
-    }
-
     // Add parent tag to contact
-    $proc->addTagToContact($contact_id, $parent_id);
+    CRM_AutoParentTag_Processor::addParentTag($contact_id, $objectId);
 }
