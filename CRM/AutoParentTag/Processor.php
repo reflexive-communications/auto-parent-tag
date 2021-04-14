@@ -1,9 +1,5 @@
 <?php
 
-use Civi\API\Exception\UnauthorizedException;
-use Civi\Api4\EntityTag;
-use Civi\Api4\Tag;
-
 /**
  * Processor
  *
@@ -14,75 +10,24 @@ use Civi\Api4\Tag;
 class CRM_AutoParentTag_Processor
 {
     /**
-     * Check if tag is applied to a contact
+     * Add parent tag to contact
      *
-     * @param  int  $contact_id  Contact ID
-     * @param  int  $tag_id  Tag ID
+     * @param int $contact_id Contact ID
+     * @param int $tag_id Child tag ID
      *
-     * @return bool
-     *
-     * @throws API_Exception
-     * @throws UnauthorizedException
+     * @throws \API_Exception
+     * @throws \CRM_Core_Exception
+     * @throws \Civi\API\Exception\UnauthorizedException
      */
-    public function isTagPresent(int $contact_id, int $tag_id): bool
+    public static function addParentTag(int $contact_id, int $tag_id): ?int
     {
-        $result = EntityTag::get()
-            ->addSelect('id')
-            ->addWhere('entity_id', '=', $contact_id)
-            ->addWhere('tag_id', '=', $tag_id)
-            ->addWhere('entity_table', '=', 'civicrm_contact')
-            ->setLimit(1)
-            ->execute();
+        $parent_id = CRM_RcBase_Api_Get::parentTagId($tag_id, true);
 
-        if ($result->count() === 1) {
-            return true;
+        // Tag has no parent or non-existent tag
+        if (is_null($parent_id)) {
+            return null;
         }
 
-        return false;
-    }
-
-    /**
-     * Get parent tag id
-     *
-     * @param  int  $tag_id  Tag ID
-     *
-     * @return int|null
-     *
-     * @throws API_Exception
-     * @throws UnauthorizedException
-     */
-    public function getParentTagId(int $tag_id): ?int
-    {
-        $result = Tag::get()
-            ->addSelect('parent_id')
-            ->addWhere('id', '=', $tag_id)
-            ->setLimit(1)
-            ->execute();
-
-        return $result->first()['parent_id'];
-    }
-
-    /**
-     * Add tag to contact
-     *
-     * @param  int  $contact_id  Contact ID
-     * @param  int  $tag_id  Tag ID
-     *
-     * @throws API_Exception
-     * @throws UnauthorizedException
-     */
-    public function addTagToContact(int $contact_id, int $tag_id)
-    {
-        // Tag already present
-        if ($this->isTagPresent($contact_id, $tag_id)) {
-            return;
-        }
-
-        // Add tag
-        EntityTag::create()
-            ->addValue('entity_id', $contact_id)
-            ->addValue('tag_id', $tag_id)
-            ->addValue('entity_table', 'civicrm_contact')
-            ->execute();
+        return CRM_RcBase_Api_Save::tagContact($contact_id, $parent_id, true);
     }
 }
