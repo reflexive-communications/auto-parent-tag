@@ -172,7 +172,7 @@ function auto_parent_tag_civicrm_themes(&$themes)
  * @throws API_Exception
  * @throws UnauthorizedException
  */
-function auto_parent_tag_civicrm_post($op, $objectName, $objectId, &$objectRef)
+function auto_parent_tag_civicrm_postCommit($op, $objectName, $objectId, &$objectRef)
 {
     // Only when creating entity tags
     if ($objectName !== 'EntityTag' || $op !== 'create') {
