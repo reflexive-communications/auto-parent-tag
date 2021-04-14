@@ -1,26 +1,32 @@
 <?xml version="1.0"?>
 <extension key="auto-parent-tag" type="module">
-  <file>auto_parent_tag</file>
-  <name>Auto parent tag</name>
-  <description>Automatically adds parent tag to contact if a child tag is added (recursively)</description>
-  <license>AGPL-3.0</license>
-  <maintainer>
-    <author>Sandor Semsey</author>
-    <email>sandor@es-progress.hu</email>
-  </maintainer>
-  <urls>
-    <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/extensions/auto-parent-tag</url>
-  </urls>
-  <releaseDate>2021-02-01</releaseDate>
-  <version>0.9</version>
-  <develStage>stable</develStage>
-  <compatibility>
-    <ver>5.0</ver>
-  </compatibility>
-  <classloader>
-    <psr4 prefix="Civi\" path="Civi"/>
-  </classloader>
-  <civix>
-    <namespace>CRM/AutoParentTag</namespace>
-  </civix>
+    <file>auto_parent_tag</file>
+    <name>Auto parent tag</name>
+    <description>Automatically adds parent tag to contact if a child tag is added (recursively)</description>
+    <license>AGPL-3.0</license>
+    <maintainer>
+        <author>Sandor Semsey</author>
+        <email>sandor@es-progress.hu</email>
+    </maintainer>
+    <urls>
+        <url desc="Main Extension Page">https://github.com/reflexive-communications/auto-parent-tag</url>
+        <url desc="Documentation">https://github.com/reflexive-communications/auto-parent-tag</url>
+        <url desc="Support">https://github.com/reflexive-communications/auto-parent-tag/issues</url>
+        <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+    </urls>
+    <releaseDate>2021-04-14</releaseDate>
+    <version>0.10.0</version>
+    <develStage>beta</develStage>
+    <compatibility>
+        <ver>5.0</ver>
+    </compatibility>
+    <requires>
+        <ext>rc-base</ext>
+    </requires>
+    <classloader>
+        <psr4 prefix="Civi\" path="Civi"/>
+    </classloader>
+    <civix>
+        <namespace>CRM/AutoParentTag</namespace>
+    </civix>
 </extension>
