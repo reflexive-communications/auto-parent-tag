@@ -19,7 +19,7 @@ Sysadmins and developers may clone the [Git](https://en.wikipedia.org/wiki/Git) 
 with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
-git clone https://github.com/reflexive-communications/auto-parent-tag
+git clone https://github.com/reflexive-communications/auto-parent-tag.git
 cv en auto_parent_tag
 ```
 
