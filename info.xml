@@ -14,8 +14,8 @@
         <url desc="Support">https://github.com/reflexive-communications/auto-parent-tag/issues</url>
         <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
     </urls>
-    <releaseDate>2021-04-14</releaseDate>
-    <version>0.10.0</version>
+    <releaseDate>2021-05-11</releaseDate>
+    <version>0.10.1</version>
     <develStage>beta</develStage>
     <compatibility>
         <ver>5.0</ver>
