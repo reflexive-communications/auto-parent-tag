@@ -112,4 +112,4 @@ jobs:
       - name: Run unit tests
         run:  |
               cd ${{ env.LOCAL_DEPLOY_TARGET }}"/"${{ env.SITE_NAME }}"/web/sites/default/files/civicrm/ext/"${{ env.EXTENSION_NAME }}
-              XDEBUG_MODE=develop phpunit --verbose
+              XDEBUG_MODE=coverage XDEBUG_MODE_COVERAGE=coverage phpunit --verbose --coverage-text
