@@ -1,9 +1,7 @@
 <?php
 
-use Civi\Test\Api3DocTrait;
-use Civi\Test\ContactTestTrait;
-use Civi\Test\DbTestTrait;
-use Civi\Test\GenericAssertionsTrait;
+use Civi\Api4\Contact;
+use Civi\Api4\UFMatch;
 
 /**
  * Test AutoParentTag hooks
@@ -12,10 +10,34 @@ use Civi\Test\GenericAssertionsTrait;
  */
 class CRM_AutoParentTag_HookTest extends CRM_AutoParentTag_HeadlessTestCase
 {
-    use Api3DocTrait;
-    use GenericAssertionsTrait;
-    use DbTestTrait;
-    use ContactTestTrait;
+    /**
+     * Simulate a logged in user
+     *
+     * @return int Contact ID
+     *
+     * @throws \API_Exception
+     * @throws \Civi\API\Exception\UnauthorizedException
+     */
+    public function createLoggedInUser(): int
+    {
+        $contact = Contact::create()
+            ->addValue('contact_type', 'Individual')
+            ->execute()
+            ->first();
+
+        // Create UF match, uf_id is the ID of the user in the CMS
+        // Now it is 42, it don't have to be a real user ID
+        UFMatch::create()
+            ->addValue('uf_id', 42)
+            ->addValue('contact_id', $contact['id'])
+            ->execute()
+            ->first();
+
+        // Set ID in session
+        $session = CRM_Core_Session::singleton();
+        $session->set('userID', $contact['id']);
+        return $contact['id'];
+    }
 
     /**
      * @throws \API_Exception
@@ -37,7 +59,10 @@ class CRM_AutoParentTag_HookTest extends CRM_AutoParentTag_HeadlessTestCase
         $child_tag_id = CRM_RcBase_Test_Utils::cvApi4Create('Tag', $tag);
 
         // Create contact
-        $contact_id = $this->individualCreate();
+        $contact_id = Contact::create()
+            ->addValue('contact_type', 'Individual')
+            ->execute()
+            ->first()['id'];
 
         // Add child tag to contact
         civicrm_api4('EntityTag', 'create', [
@@ -75,7 +100,10 @@ class CRM_AutoParentTag_HookTest extends CRM_AutoParentTag_HeadlessTestCase
         $child_tag_id = CRM_RcBase_Test_Utils::cvApi4Create('Tag', $tag);
 
         // Create contact
-        $contact_id = $this->individualCreate();
+        $contact_id = Contact::create()
+            ->addValue('contact_type', 'Individual')
+            ->execute()
+            ->first()['id'];
 
         // Add child tag to contact
         civicrm_api4('EntityTag', 'create', [
